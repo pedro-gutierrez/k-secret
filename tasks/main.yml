@@ -8,7 +8,7 @@
   when: tls
 
 - name: Create {{ name }} secret (TLS)
-  shell: "kubectl create secret generic {{ name }} {{ files | format_list('--from-file=%s') | join(' ')}}" 
+  shell: "kubectl create secret generic {{ name }} {{ files | format_list('--from-file={0}') | join(' ')}}" 
   when: not tls
 
 
