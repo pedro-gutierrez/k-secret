@@ -1,0 +1,9 @@
+---
+- name: Delete existing {{ name }} secret
+  shell: "kubectl delete secret {{ name }}"
+  ignore_errors: yes
+
+- name: Create {{ name }} secret (TLS)
+  shell: "kubectl create secret tls {{ name }} --key {{ certs }}/tls.key --cert {{ certs }}/tls.crt"
+  when: tls
+
