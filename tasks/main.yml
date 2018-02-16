@@ -7,3 +7,8 @@
   shell: "kubectl create secret tls {{ name }} --key {{ certs }}/tls.key --cert {{ certs }}/tls.crt"
   when: tls
 
+- name: Create {{ name }} secret (TLS)
+  shell: "kubectl create secret generic {{ name }} {{ files | format_list('--from-file=%s') | join(' ')}}" 
+  when: not tls
+
+
