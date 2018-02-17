@@ -1,6 +1,6 @@
 ---
 - name: Delete existing {{ name }} secret
-  shell: "kubectl delete secret {{ name }}"
+  shell: "kubectl delete secret {{ name }} --namespace={{ ns }}"
   ignore_errors: yes
 
 - name: Create {{ name }} secret (TLS)
