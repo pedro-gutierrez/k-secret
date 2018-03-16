@@ -5,10 +5,14 @@
 
 - name: Create {{ name }} secret (TLS)
   shell: "kubectl create secret tls {{ name }} --key {{ certs }}/tls.key --cert {{ certs }}/tls.crt --namespace={{ ns }}"
-  when: tls
+  when: secret_type == 'tls'
+
+- name: Create {{ name }} secret (Docker)
+  shell: "kubectl create secret docker-registry {{ name }} --docker-server={{ docker.registry }} --docker-username={{ docker.user }} --docker-password={{ docker.password }} --docker-email={{ docker.email }} --namespace={{ ns }}"
+  when: secret_type == 'docker'
 
 - name: Create {{ name }} secret (Generic)
   shell: "kubectl create secret generic {{ name }} {{ files | format_list('--from-file={0}') | join(' ')}} --namespace={{ ns }}" 
-  when: not tls
+  when: secret_type == 'generic'
 
 
