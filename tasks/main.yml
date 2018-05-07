@@ -4,7 +4,7 @@
   ignore_errors: yes
 
 - name: Create {{ name }} secret (TLS)
-  shell: "kubectl create secret tls {{ name }} --key {{ certs }}/tls.key --cert {{ certs }}/tls.crt --namespace={{ ns }}"
+  shell: "kubectl create secret tls {{ name }} --key {{ certs }}/{{ tls_filename }}.key --cert {{ certs }}/{{ tls_filename }}.crt --namespace={{ ns }}"
   when: secret_type == 'tls'
 
 - name: Create {{ name }} secret (Docker)
