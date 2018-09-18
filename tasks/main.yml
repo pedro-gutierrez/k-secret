@@ -12,7 +12,7 @@
   when: secret_type == 'docker'
 
 - name: Create {{ name }} secret (Generic)
-  shell: "kubectl create secret generic {{ name }} {{ files | format_list('--from-file={0}') | join(' ')}} --namespace={{ ns }}" 
+  shell: "kubectl create secret generic {{ name }} {{ files | unique | format_list('--from-file={0}') | join(' ')}} --namespace={{ ns }}" 
   when: secret_type == 'generic'
 
 
